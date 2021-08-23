@@ -1,0 +1,16 @@
+{
+  "name": "aries-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "@aries-framework/core": "0.1.0-alpha.253",
+    "@aries-framework/react-native": "0.1.0-alpha.253",
+    "indy-sdk-react-native": "^0.1.13"
+  }
+}

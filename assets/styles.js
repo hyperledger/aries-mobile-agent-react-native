@@ -18,7 +18,7 @@ const Styles = StyleSheet.create({
   },
   viewFull: {
     height: '100%',
-    backgroundColor: '#eee',
+    backgroundColor: 'white',
   },
   viewOverlay: {
     height: '50%',
