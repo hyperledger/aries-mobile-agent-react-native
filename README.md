@@ -61,7 +61,7 @@ Aries Bifold as of right now is tied to one ledger with the intention of making 
 Clone the repo:
 
 ```sh
-git clone https://github.com/Indicio-tech/aries-mobile-agent-react-native
+git clone https://github.com/hyperledger/aries-mobile-agent-react-native
 cd aries-mobile-agent-react-native
 npm install
 ```
@@ -91,7 +91,31 @@ npm run android
 
 #### Run Via Visual Studio
 
-_TODO_
+To run the Android Emulator, install Android Studio and setup emulator version in AVD manager.  
+Instructions can be found [here](https://developer.android.com/studio/run/managing-avds).
+
+```sh
+git clone https://github.com/hyperledger/aries-mobile-agent-react-native
+cd aries-mobile-agent-react-native
+```
+
+After clone, install using --force if version error appear:
+
+```sh
+npm install --force
+```
+
+Export the environmental variables:
+
+```sh
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export MEDIATOR_URL=https://dd652a260851.ngrok.io
+export GENESIS_URL=https://raw.githubusercontent.com/Indicio-tech/indicio-network/main/genesis_files/pool_transactions_testnet_genesis
+```
 
 #### APKs
 
