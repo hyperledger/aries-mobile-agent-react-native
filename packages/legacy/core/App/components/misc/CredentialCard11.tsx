@@ -3,7 +3,7 @@ import { BrandingOverlay } from '@hyperledger/aries-oca'
 import { Attribute, CredentialOverlay, Predicate } from '@hyperledger/aries-oca/build/legacy'
 import { useNavigation } from '@react-navigation/native'
 import startCase from 'lodash.startcase'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   FlatList,
@@ -23,14 +23,18 @@ import { TOKENS, useServices } from '../../container-api'
 import { useTheme } from '../../contexts/theme'
 import { GenericFn } from '../../types/fn'
 import { credentialTextColor, getCredentialIdentifiers, toImageSource } from '../../utils/credential'
-import { formatIfDate, useCredentialConnectionLabel, isDataUrl, pTypeToText } from '../../utils/helpers'
+import { formatIfDate, useCredentialConnectionLabel, isDataUrl } from '../../utils/helpers'
 import { shadeIsLightOrDark, Shade } from '../../utils/luminance'
 import { testIdWithKey } from '../../utils/testable'
 
 import CardWatermark from './CardWatermark'
 import CredentialActionFooter from './CredentialCard11ActionFooter'
+import { CredentialCard11And12Theme } from '../../theme'
+import { useParseAttribute } from '../../hooks/parse-attribute'
+import CredentialCardLogoBranding from './CredentialCardLogoBranding'
+import CredentialCardStatus from './CredentialCardStatus'
 
-interface CredentialCard11Props {
+export interface CredentialCardBrandingProps {
   credential?: CredentialExchangeRecord
   onPress?: GenericFn
   style?: ViewStyle
@@ -76,7 +80,7 @@ interface CredentialCard11Props {
   Note: The small logo MUST be provided as 1x1 (height/width) ratio.
  */
 
-const CredentialCard11: React.FC<CredentialCard11Props> = ({
+const CredentialCard11: React.FC<CredentialCardBrandingProps> = ({
   credential,
   style = {},
   displayItems,
@@ -111,15 +115,6 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
   ])
   const [helpAction, setHelpAction] = useState<GenericFn>()
   const [overlay, setOverlay] = useState<CredentialOverlay<BrandingOverlay>>({})
-  const attributeFormats: Record<string, string | undefined> = useMemo(() => {
-    return (overlay.bundle as any)?.bundle.attributes
-      .map((attr: any) => {
-        return { name: attr.name, format: attr.format }
-      })
-      .reduce((prev: { [key: string]: string }, curr: { name: string; format?: string }) => {
-        return { ...prev, [curr.name]: curr.format }
-      }, {})
-  }, [overlay])
 
   const cardData = useMemo(() => {
     const primaryField = overlay?.presentationFields?.find(
@@ -145,88 +140,72 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
 
   const styles = StyleSheet.create({
     container: {
+      ...CredentialCard11And12Theme.container,
       backgroundColor: overlay.brandingOverlay?.primaryBackgroundColor,
-      borderRadius: borderRadius,
     },
     cardContainer: {
-      flexDirection: 'row',
+      ...CredentialCard11And12Theme.cardContainer,
       minHeight: 0.33 * width,
     },
     secondaryBodyContainer: {
       width: logoHeight,
-      borderTopLeftRadius: borderRadius,
-      borderBottomLeftRadius: borderRadius,
+      ...CredentialCard11And12Theme.secondaryBodyContainer,
       backgroundColor: getSecondaryBackgroundColor() ?? overlay.brandingOverlay?.primaryBackgroundColor,
     },
     primaryBodyContainer: {
-      flex: 1,
+      ...CredentialCard11And12Theme.primaryBodyContainer,
       padding,
       marginLeft: -1 * logoHeight + padding,
     },
     imageAttr: {
-      height: 150,
-      aspectRatio: 1,
-      resizeMode: 'contain',
-      borderRadius: borderRadius,
+      ...CredentialCard11And12Theme.imageAttr,
     },
     statusContainer: {
-      backgroundColor: 'rgba(0, 0, 0, 0)',
-      borderTopRightRadius: borderRadius,
-      borderBottomLeftRadius: borderRadius,
+      ...CredentialCard11And12Theme.statusContainer,
       height: logoHeight,
       width: logoHeight,
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     logoContainer: {
       top: padding,
       left: -1 * logoHeight + padding,
       width: logoHeight,
       height: logoHeight,
-      backgroundColor: '#ffffff',
-      borderRadius: 8,
-      justifyContent: 'center',
-      alignItems: 'center',
+      ...CredentialCard11And12Theme.logoContainer,
       shadowColor: '#000',
       shadowOffset: {
         width: 1,
         height: 1,
       },
       shadowOpacity: 0.3,
+      ...(elevated
+        ? {
+            elevation: 5,
+          }
+        : { elevation: 0 }),
     },
     headerText: {
-      ...TextTheme.labelSubtitle,
-      ...ListItems.recordAttributeText,
-      fontSize: 15,
-      flexShrink: 1,
+      ...CredentialCard11And12Theme.headerText,
     },
     valueText: {
-      ...TextTheme.normal,
-      minHeight: ListItems.recordAttributeText.fontSize,
-      paddingVertical: 4,
+      ...CredentialCard11And12Theme.valueText,
     },
     textContainer: {
       color: proof
         ? TextTheme.normal.color
         : credentialTextColor(ColorPallet, overlay.brandingOverlay?.primaryBackgroundColor),
-      flexShrink: 1,
+      ...CredentialCard11And12Theme.textContainer,
     },
     errorText: {
-      ...TextTheme.normal,
-      color: ListItems.proofError.color,
+      ...CredentialCard11And12Theme.errorText,
     },
     errorIcon: {
-      color: ListItems.proofError.color,
+      ...CredentialCard11And12Theme.errorIcon,
     },
     selectedCred: {
-      borderWidth: 5,
-      borderRadius: 15,
-      borderColor: ColorPallet.semantic.focus,
+      ...CredentialCard11And12Theme.selectedCred,
     },
     credActionText: {
-      fontSize: 20,
-      fontWeight: TextTheme.bold.fontWeight,
-      color: ColorPallet.brand.link,
+      ...CredentialCard11And12Theme.credActionText,
     },
   })
 
@@ -245,23 +224,7 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
     return shade == Shade.Light ? ColorPallet.grayscale.darkGrey : ColorPallet.grayscale.lightGrey
   }
 
-  const parseAttribute = useCallback(
-    (item: (Attribute & Predicate) | undefined) => {
-      let parsedItem = item
-      if (item && item.pValue != null) {
-        parsedItem = pTypeToText(item, t, overlay.bundle?.captureBase.attributes) as Attribute & Predicate
-      }
-      const parsedValue = formatIfDate(
-        attributeFormats?.[item?.name ?? ''],
-        parsedItem?.value ?? parsedItem?.pValue ?? null
-      )
-      return {
-        label: item?.label ?? item?.name ?? '',
-        value: item?.value !== undefined && item?.value != null ? parsedValue : `${parsedItem?.pType} ${parsedValue}`,
-      }
-    },
-    [t, overlay, attributeFormats]
-  )
+  const parseAttribute = useParseAttribute(credential, schemaId, credDefId, proof, credName)
 
   useEffect(() => {
     setAllPI(
@@ -337,41 +300,6 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
     setIsRevoked(credential?.revocationNotification !== undefined && !proof)
     setIsProofRevoked(credential?.revocationNotification !== undefined && !!proof)
   }, [credential?.revocationNotification, proof])
-
-  const CredentialCardLogo: React.FC = () => {
-    return (
-      <View style={[styles.logoContainer, { elevation: elevated ? 5 : 0 }]}>
-        {overlay.brandingOverlay?.logo ? (
-          <Image
-            source={toImageSource(overlay.brandingOverlay?.logo)}
-            style={{
-              resizeMode: 'cover',
-              width: logoHeight,
-              height: logoHeight,
-              borderRadius: 8,
-            }}
-          />
-        ) : (
-          <Text
-            style={[
-              TextTheme.bold,
-              {
-                fontSize: 0.5 * logoHeight,
-                alignSelf: 'center',
-                color: '#000',
-              },
-            ]}
-          >
-            {!predicateError && !error ? (
-              (overlay.metaOverlay?.name ?? overlay.metaOverlay?.issuer ?? 'C')?.charAt(0).toUpperCase()
-            ) : (
-              <Icon name={'error'} size={30} style={styles.errorIcon} />
-            )}
-          </Text>
-        )}
-      </View>
-    )
-  }
 
   const AttributeLabel: React.FC<{ label: string }> = ({ label }) => {
     const ylabel = overlay.bundle?.labelOverlay?.attributeLabels[label] ?? startCase(label)
@@ -606,42 +534,6 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
     )
   }
 
-  const CredentialCardStatus: React.FC<{ status?: 'error' | 'warn' }> = ({ status }) => {
-    const Status: React.FC<{ status?: 'error' | 'warn' }> = ({ status }) => {
-      return (
-        <>
-          {status ? (
-            <View
-              style={[
-                styles.statusContainer,
-                {
-                  backgroundColor: status === 'error' ? ColorPallet.notification.error : ColorPallet.notification.warn,
-                },
-              ]}
-            >
-              <Icon
-                size={0.7 * logoHeight}
-                style={{ color: status === 'error' ? ColorPallet.semantic.error : ColorPallet.notification.warnIcon }}
-                name={status === 'error' ? 'error' : 'warning'}
-              />
-            </View>
-          ) : (
-            <View style={styles.statusContainer} />
-          )}
-        </>
-      )
-    }
-
-    return (
-      <View
-        testID={testIdWithKey('CredentialCardStatus')}
-        style={[styles.statusContainer, { position: 'absolute', right: 0, top: 0 }]}
-      >
-        <Status status={status} />
-      </View>
-    )
-  }
-
   const CredentialCard: React.FC<{ status?: 'error' | 'warn' }> = ({ status }) => {
     return (
       <View
@@ -660,7 +552,14 @@ const CredentialCard11: React.FC<CredentialCard11Props> = ({
         }
       >
         <CredentialCardSecondaryBody />
-        <CredentialCardLogo />
+        <CredentialCardLogoBranding
+          credential={credential}
+          credName={credName}
+          credDefId={credDefId}
+          schemaId={schemaId}
+          proof={proof}
+          logoContainerStyles={styles.logoContainer}
+        />
         <CredentialCardPrimaryBody />
         <CredentialCardStatus status={status} />
       </View>

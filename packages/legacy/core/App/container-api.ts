@@ -2,7 +2,7 @@ import { Agent, BaseLogger } from '@credo-ts/core'
 import { IndyVdrPoolConfig } from '@credo-ts/indy-vdr'
 import { ProofRequestTemplate } from '@hyperledger/aries-bifold-verifier'
 import { OCABundleResolverType } from '@hyperledger/aries-oca/build/legacy'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackNavigationOptions, StackNavigationProp } from '@react-navigation/stack'
 import React, { createContext, useContext } from 'react'
 import { DependencyContainer } from 'tsyringe'
 
@@ -12,7 +12,7 @@ import { IHistoryManager } from './modules/history'
 import Onboarding from './screens/Onboarding'
 import { AttestationMonitor } from './types/attestation'
 import { GenericFn } from './types/fn'
-import { AuthenticateStackParams, ScreenOptionsType } from './types/navigators'
+import { AuthenticateStackParams, ContactStackParams, ScreenOptionsType } from './types/navigators'
 import { CustomNotification } from './types/notification'
 import { Config } from './types/config'
 import { NotificationReturnType, NotificationsInputProps } from './hooks/notifications'
@@ -73,6 +73,7 @@ export const NOTIFICATION_TOKENS = {
 
 export const STACK_TOKENS = {
   STACK_ONBOARDING: 'stack.onboarding',
+  STACK_CONTACT: 'stack.contact',
 } as const
 
 export const FN_TOKENS = {
@@ -150,6 +151,11 @@ export type TokenMapping = {
   [TOKENS.GROUP_BY_REFERENT]: boolean
   [TOKENS.SCREEN_PREFACE]: React.FC
   [TOKENS.STACK_ONBOARDING]: React.FC
+  [TOKENS.STACK_CONTACT]: {
+    name: keyof ContactStackParams //key of contact stack
+    component: React.FC
+    options: StackNavigationOptions
+  }[]
   [TOKENS.SCREEN_TERMS]: { screen: React.FC; version: boolean | string }
   [TOKENS.SCREEN_DEVELOPER]: React.FC
   [TOKENS.SCREEN_ONBOARDING_PAGES]: (onTutorialCompleted: GenericFn, OnboardingTheme: any) => Array<Element>

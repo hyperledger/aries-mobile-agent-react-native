@@ -65,17 +65,12 @@ const RecordField: React.FC<RecordFieldProps> = ({
   fieldValue = null,
 }) => {
   const { t } = useTranslation()
-  const { ListItems } = useTheme()
+  const { ListItems, RecordFieldSeparatorTheme } = useTheme()
   const styles = StyleSheet.create({
     container: {
       ...ListItems.recordContainer,
       paddingHorizontal: 25,
       paddingTop: 16,
-    },
-    border: {
-      ...ListItems.recordBorder,
-      borderBottomWidth: 2,
-      paddingTop: 12,
     },
     link: {
       ...ListItems.recordLink,
@@ -128,7 +123,7 @@ const RecordField: React.FC<RecordFieldProps> = ({
           </>
         )}
       </View>
-      {<View style={[styles.border, hideBottomBorder && { borderBottomWidth: 0 }]} />}
+      {<View style={[RecordFieldSeparatorTheme, hideBottomBorder && { borderBottomWidth: 0 }]} />}
     </View>
   )
 }

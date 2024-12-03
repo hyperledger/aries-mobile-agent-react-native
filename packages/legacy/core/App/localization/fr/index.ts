@@ -491,6 +491,7 @@ const translation = {
         "HowToGetThisCredentialBackListItem1": "Vous devrez vous rendre auprès de l'organisme qui vous a délivré cette attestation et le redemander.",
         "CredentialRemoved": "Justificatif retiré",
         "IssuedBy": "Émis par:",
+        "IssuedOn": "Emis le {{date}}",
         "RemoveCredential": "Supprimer l'attestation d'identité",
     },
     "Home": {
@@ -703,6 +704,7 @@ const translation = {
         "GenerationError": "Impossible de générer le code QR",
     },
     "Record": {
+        "CrendentialInformation": "Informations de l'attestation",
         "Hide": "Masquer",
         "Show": "Afficher",
         "HideAll": "Masquer tout",

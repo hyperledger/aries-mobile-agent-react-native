@@ -222,23 +222,25 @@ exports[`Connection Screen No connection, show to proof 1`] = `
                                   />
                                   <View
                                     style={
-                                      Object {
-                                        "backgroundColor": "#D3D3D3",
-                                        "borderRadius": 10,
-                                        "height": 90,
-                                        "marginLeft": -52.5,
-                                        "marginTop": 37.5,
-                                        "width": 90,
-                                      }
+                                      Array [
+                                        Object {
+                                          "backgroundColor": "#D3D3D3",
+                                          "borderRadius": 10,
+                                          "height": 90,
+                                          "width": 90,
+                                        },
+                                        Object {
+                                          "marginLeft": -52.5,
+                                          "marginTop": 37.5,
+                                        },
+                                      ]
                                     }
                                   />
                                   <View
                                     style={
                                       Object {
                                         "flexGrow": 1,
-                                        "marginBottom": 15,
-                                        "marginLeft": 15,
-                                        "marginTop": 15,
+                                        "margin": 15,
                                       }
                                     }
                                   >
@@ -349,23 +351,25 @@ exports[`Connection Screen No connection, show to proof 1`] = `
                                   />
                                   <View
                                     style={
-                                      Object {
-                                        "backgroundColor": "#D3D3D3",
-                                        "borderRadius": 10,
-                                        "height": 90,
-                                        "marginLeft": -52.5,
-                                        "marginTop": 37.5,
-                                        "width": 90,
-                                      }
+                                      Array [
+                                        Object {
+                                          "backgroundColor": "#D3D3D3",
+                                          "borderRadius": 10,
+                                          "height": 90,
+                                          "width": 90,
+                                        },
+                                        Object {
+                                          "marginLeft": -52.5,
+                                          "marginTop": 37.5,
+                                        },
+                                      ]
                                     }
                                   />
                                   <View
                                     style={
                                       Object {
                                         "flexGrow": 1,
-                                        "marginBottom": 15,
-                                        "marginLeft": 15,
-                                        "marginTop": 15,
+                                        "margin": 15,
                                       }
                                     }
                                   >
@@ -953,27 +957,23 @@ exports[`Connection Screen Valid goal code aries.vc.issue extracted, show to off
                         </View>
                         <View
                           style={
-                            Array [
-                              Object {
-                                "alignItems": "center",
-                                "backgroundColor": "#ffffff",
-                                "borderRadius": 8,
-                                "height": 90,
-                                "justifyContent": "center",
-                                "left": -52.5,
-                                "shadowColor": "#000",
-                                "shadowOffset": Object {
-                                  "height": 1,
-                                  "width": 1,
-                                },
-                                "shadowOpacity": 0.3,
-                                "top": 37.5,
-                                "width": 90,
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "#ffffff",
+                              "borderRadius": 8,
+                              "elevation": 0,
+                              "height": 90,
+                              "justifyContent": "center",
+                              "left": -52.5,
+                              "shadowColor": "#000",
+                              "shadowOffset": Object {
+                                "height": 1,
+                                "width": 1,
                               },
-                              Object {
-                                "elevation": 0,
-                              },
-                            ]
+                              "shadowOpacity": 0.3,
+                              "top": 37.5,
+                              "width": 90,
+                            }
                           }
                         >
                           <Text

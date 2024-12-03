@@ -437,27 +437,23 @@ exports[`displays a proof request screen ProofRequest Screen, W3C displays a pro
                             />
                             <View
                               style={
-                                Array [
-                                  Object {
-                                    "alignItems": "center",
-                                    "backgroundColor": "#ffffff",
-                                    "borderRadius": 8,
-                                    "height": 90,
-                                    "justifyContent": "center",
-                                    "left": -52.5,
-                                    "shadowColor": "#000",
-                                    "shadowOffset": Object {
-                                      "height": 1,
-                                      "width": 1,
-                                    },
-                                    "shadowOpacity": 0.3,
-                                    "top": 37.5,
-                                    "width": 90,
+                                Object {
+                                  "alignItems": "center",
+                                  "backgroundColor": "#ffffff",
+                                  "borderRadius": 8,
+                                  "elevation": 5,
+                                  "height": 90,
+                                  "justifyContent": "center",
+                                  "left": -52.5,
+                                  "shadowColor": "#000",
+                                  "shadowOffset": Object {
+                                    "height": 1,
+                                    "width": 1,
                                   },
-                                  Object {
-                                    "elevation": 5,
-                                  },
-                                ]
+                                  "shadowOpacity": 0.3,
+                                  "top": 37.5,
+                                  "width": 90,
+                                }
                               }
                             >
                               <Text
@@ -950,27 +946,23 @@ exports[`displays a proof request screen ProofRequest Screen, W3C displays a pro
                             />
                             <View
                               style={
-                                Array [
-                                  Object {
-                                    "alignItems": "center",
-                                    "backgroundColor": "#ffffff",
-                                    "borderRadius": 8,
-                                    "height": 90,
-                                    "justifyContent": "center",
-                                    "left": -52.5,
-                                    "shadowColor": "#000",
-                                    "shadowOffset": Object {
-                                      "height": 1,
-                                      "width": 1,
-                                    },
-                                    "shadowOpacity": 0.3,
-                                    "top": 37.5,
-                                    "width": 90,
+                                Object {
+                                  "alignItems": "center",
+                                  "backgroundColor": "#ffffff",
+                                  "borderRadius": 8,
+                                  "elevation": 5,
+                                  "height": 90,
+                                  "justifyContent": "center",
+                                  "left": -52.5,
+                                  "shadowColor": "#000",
+                                  "shadowOffset": Object {
+                                    "height": 1,
+                                    "width": 1,
                                   },
-                                  Object {
-                                    "elevation": 5,
-                                  },
-                                ]
+                                  "shadowOpacity": 0.3,
+                                  "top": 37.5,
+                                  "width": 90,
+                                }
                               }
                             >
                               <Text
@@ -989,29 +981,7 @@ exports[`displays a proof request screen ProofRequest Screen, W3C displays a pro
                                   ]
                                 }
                               >
-                                <Text
-                                  allowFontScaling={false}
-                                  selectable={false}
-                                  style={
-                                    Array [
-                                      Object {
-                                        "color": undefined,
-                                        "fontSize": 30,
-                                      },
-                                      Object {
-                                        "color": "#D8292F",
-                                      },
-                                      Object {
-                                        "fontFamily": "Material Icons",
-                                        "fontStyle": "normal",
-                                        "fontWeight": "normal",
-                                      },
-                                      Object {},
-                                    ]
-                                  }
-                                >
-                                  
-                                </Text>
+                                C
                               </Text>
                             </View>
                             <View

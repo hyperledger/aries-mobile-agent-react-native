@@ -342,7 +342,7 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                   style={
                     Array [
                       Object {
-                        "backgroundColor": "#5f0f7b",
+                        "backgroundColor": undefined,
                         "borderRadius": 10,
                       },
                       Object {
@@ -533,7 +533,13 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                   }
                                 }
                               >
-                                <View>
+                                <View
+                                  style={
+                                    Object {
+                                      "gap": 4,
+                                    }
+                                  }
+                                >
                                   <Text
                                     style={
                                       Array [
@@ -547,8 +553,8 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                           "flexShrink": 1,
                                         },
                                         Object {
-                                          "lineHeight": 19,
-                                          "opacity": 0.8,
+                                          "lineHeight": 18,
+                                          "opacity": 0.7,
                                         },
                                       ]
                                     }
@@ -569,6 +575,7 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                             "color": "#FFFFFF",
                                             "flexShrink": 1,
                                           },
+                                          Object {},
                                         ]
                                       }
                                       testID="com.ariesbifold:id/AttributeValue"
@@ -591,7 +598,13 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                   }
                                 }
                               >
-                                <View>
+                                <View
+                                  style={
+                                    Object {
+                                      "gap": 4,
+                                    }
+                                  }
+                                >
                                   <Text
                                     style={
                                       Array [
@@ -605,8 +618,8 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                           "flexShrink": 1,
                                         },
                                         Object {
-                                          "lineHeight": 19,
-                                          "opacity": 0.8,
+                                          "lineHeight": 18,
+                                          "opacity": 0.7,
                                         },
                                       ]
                                     }
@@ -627,6 +640,7 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                             "color": "#FFFFFF",
                                             "flexShrink": 1,
                                           },
+                                          Object {},
                                         ]
                                       }
                                       testID="com.ariesbifold:id/AttributeValue"
@@ -895,7 +909,7 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                   style={
                     Array [
                       Object {
-                        "backgroundColor": "#5f0f7b",
+                        "backgroundColor": undefined,
                         "borderRadius": 10,
                       },
                       Object {
@@ -1086,7 +1100,13 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                   }
                                 }
                               >
-                                <View>
+                                <View
+                                  style={
+                                    Object {
+                                      "gap": 4,
+                                    }
+                                  }
+                                >
                                   <Text
                                     style={
                                       Array [
@@ -1100,8 +1120,8 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                           "flexShrink": 1,
                                         },
                                         Object {
-                                          "lineHeight": 19,
-                                          "opacity": 0.8,
+                                          "lineHeight": 18,
+                                          "opacity": 0.7,
                                         },
                                       ]
                                     }
@@ -1122,6 +1142,7 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                             "color": "#FFFFFF",
                                             "flexShrink": 1,
                                           },
+                                          Object {},
                                         ]
                                       }
                                       testID="com.ariesbifold:id/AttributeValue"
@@ -1144,7 +1165,13 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                   }
                                 }
                               >
-                                <View>
+                                <View
+                                  style={
+                                    Object {
+                                      "gap": 4,
+                                    }
+                                  }
+                                >
                                   <Text
                                     style={
                                       Array [
@@ -1158,8 +1185,8 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                           "flexShrink": 1,
                                         },
                                         Object {
-                                          "lineHeight": 19,
-                                          "opacity": 0.8,
+                                          "lineHeight": 18,
+                                          "opacity": 0.7,
                                         },
                                       ]
                                     }
@@ -1180,6 +1207,7 @@ exports[`ProofDetails Screen with a verified proof record renders correctly when
                                             "color": "#FFFFFF",
                                             "flexShrink": 1,
                                           },
+                                          Object {},
                                         ]
                                       }
                                       testID="com.ariesbifold:id/AttributeValue"

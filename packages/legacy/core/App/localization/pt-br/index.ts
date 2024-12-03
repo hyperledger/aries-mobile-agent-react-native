@@ -467,6 +467,7 @@ const translation = {
     "HowToGetThisCredentialBackListItem1": "Você terá que ir à organização que lhe emitiu essa credencial e requisita-la novamente.",
     "CredentialRemoved": "Credencial removida",
     "IssuedBy": "Emitida por:",
+    "IssuedOn": "Emitida em {{date}}",
     "RemoveCredential": "Remover Credencial",
   },
   "Home": {
@@ -685,6 +686,7 @@ const translation = {
     "GenerationError": "Não foi possível gerar o código QR",
   },
   "Record": {
+    "CrendentialInformation": "Informações da credencial",
     "Hide": "Esconder",
     "Show": "Mostrar",
     "HideAll": "Esconder todos",

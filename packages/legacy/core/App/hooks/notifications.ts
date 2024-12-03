@@ -19,7 +19,7 @@ import {
 } from '../types/metadata'
 import { useOpenID } from '../modules/openid/hooks/openid'
 import { CustomNotification } from '../types/notification'
-import { OpenId4VPRequestRecord } from 'modules/openid/types'
+import { OpenId4VPRequestRecord } from '../modules/openid/types'
 
 export type NotificationsInputProps = {
   openIDUri?: string

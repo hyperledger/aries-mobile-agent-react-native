@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ViewStyle } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
 import Arrow from './assets/icons/large-arrow.svg'
@@ -856,6 +856,12 @@ export const OnboardingTheme = {
   },
 }
 
+export const RecordFieldSeparatorTheme = {
+  ...ListItems.recordBorder,
+  borderBottomWidth: 2,
+  paddingTop: 12,
+} satisfies ViewStyle
+
 export const DialogTheme = {
   modalView: {
     backgroundColor: ColorPallet.brand.secondaryBackground,
@@ -913,6 +919,79 @@ const PINInputTheme = {
     borderWidth: 1,
   },
 }
+
+const credentialCard11BorderRadius = 10
+export const CredentialCard11And12Theme = StyleSheet.create({
+  container: {
+    borderRadius: credentialCard11BorderRadius,
+  },
+  cardContainer: {
+    flexDirection: 'row',
+  },
+  secondaryBodyContainer: {
+    borderTopLeftRadius: credentialCard11BorderRadius,
+    borderBottomLeftRadius: credentialCard11BorderRadius,
+  },
+  primaryBodyContainer: {
+    flex: 1,
+  },
+  imageAttr: {
+    height: 150,
+    aspectRatio: 1,
+    resizeMode: 'contain',
+    borderRadius: credentialCard11BorderRadius,
+  },
+  statusContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopRightRadius: credentialCard11BorderRadius,
+    borderBottomLeftRadius: credentialCard11BorderRadius,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerText: {
+    ...TextTheme.labelSubtitle,
+    ...ListItems.recordAttributeText,
+    fontSize: 15,
+    flexShrink: 1,
+  },
+  valueText: {
+    ...TextTheme.normal,
+    minHeight: ListItems.recordAttributeText.fontSize,
+    paddingVertical: 4,
+  },
+  textContainer: {
+    flexShrink: 1,
+  },
+  errorText: {
+    ...TextTheme.normal,
+    color: ListItems.proofError.color,
+  },
+  errorIcon: {
+    color: ListItems.proofError.color,
+  },
+  selectedCred: {
+    borderWidth: 5,
+    borderRadius: 15,
+    borderColor: ColorPallet.semantic.focus,
+  },
+  seperator: {
+    width: '100%',
+    height: 2,
+    marginVertical: 10,
+    backgroundColor: ColorPallet.grayscale.lightGrey,
+  },
+  credActionText: {
+    fontSize: 20,
+    fontWeight: TextTheme.bold.fontWeight,
+    color: ColorPallet.brand.link,
+  },
+})
 
 export const Assets = {
   svg: {
@@ -1001,6 +1080,7 @@ export interface ITheme {
   ChatTheme: any
   OnboardingTheme: any
   DialogTheme: any
+  RecordFieldSeparatorTheme: ViewStyle
   LoadingTheme: any
   PINEnterTheme: any
   PINInputTheme: any
@@ -1024,6 +1104,7 @@ export const theme: ITheme = {
   ChatTheme,
   OnboardingTheme,
   DialogTheme,
+  RecordFieldSeparatorTheme,
   LoadingTheme,
   PINEnterTheme,
   PINInputTheme,

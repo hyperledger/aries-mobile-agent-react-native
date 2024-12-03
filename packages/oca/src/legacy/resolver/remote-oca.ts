@@ -569,7 +569,10 @@ export class RemoteOCABundleResolver extends DefaultOCABundleResolver {
       const bundleData: IOverlayBundleData[] = await this.loadOCABundle(bundlePath)
       const overlayBundle = new OverlayBundle(params.identifiers.credentialDefinitionId ?? '', bundleData[0])
       const overlay = overlayBundle.overlays.find(
-        (overlay) => overlay.type === BrandingOverlayType.Branding01 || overlay.type === BrandingOverlayType.Branding10
+        (overlay) =>
+          overlay.type === BrandingOverlayType.Branding01 ||
+          overlay.type === BrandingOverlayType.Branding10 ||
+          overlay.type === BrandingOverlayType.Branding11
       )
 
       if (!overlay) {
@@ -603,13 +606,20 @@ export class RemoteOCABundleResolver extends DefaultOCABundleResolver {
       background_color: generateColor(credentialDefinitionId),
     })
 
-    const brandingOverlay: BrandingOverlay = new BrandingOverlay(credentialDefinitionId, {
+    const brandingOverlay10: BrandingOverlay = new BrandingOverlay(credentialDefinitionId, {
       capture_base: captureBase,
       type: BrandingOverlayType.Branding10,
       primary_background_color: generateColor(credentialDefinitionId),
     })
 
-    return [legacyBrandingOverlay, brandingOverlay]
+    const brandingOverlay11: BrandingOverlay = new BrandingOverlay(credentialDefinitionId, {
+      capture_base: captureBase,
+      type: BrandingOverlayType.Branding11,
+      primary_background_color: '#FFFFFF',
+      secondary_background_color: generateColor(credentialDefinitionId),
+    })
+
+    return [legacyBrandingOverlay, brandingOverlay10, brandingOverlay11]
   }
 
   private async verifyCacheIntegrity(fetchMissing: boolean = false): Promise<boolean> {

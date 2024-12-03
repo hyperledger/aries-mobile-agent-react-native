@@ -21,19 +21,26 @@ export interface RecordProps {
 const Record: React.FC<RecordProps> = ({ header, footer, fields, hideFieldValues = false, field = null }) => {
   const { t } = useTranslation()
   const [shown, setShown] = useState<boolean[]>([])
-  const { ListItems, TextTheme } = useTheme()
+  const { ListItems, TextTheme, ColorPallet } = useTheme()
 
   const styles = StyleSheet.create({
     linkContainer: {
       ...ListItems.recordContainer,
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       paddingHorizontal: 25,
       paddingVertical: 16,
     },
     link: {
       minHeight: TextTheme.normal.fontSize,
       paddingVertical: 2,
+    },
+    aboutCredential: {
+      fontSize: 16,
+      lineHeight: 24,
+      fontWeight: '700',
+      color: ColorPallet.brand.link,
     },
   })
 
@@ -72,6 +79,7 @@ const Record: React.FC<RecordProps> = ({ header, footer, fields, hideFieldValues
             {header()}
             {hideFieldValues ? (
               <View style={styles.linkContainer}>
+                <Text style={styles.aboutCredential}>{t('Record.CrendentialInformation')}</Text>
                 <TouchableOpacity
                   style={styles.link}
                   activeOpacity={1}

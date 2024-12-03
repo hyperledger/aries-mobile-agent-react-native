@@ -1,3 +1,4 @@
+import { OverlayType } from '..'
 import { IBrandingOverlayData, ILegacyBrandingOverlayData, IOverlayBundleData } from '../../interfaces/data'
 import { IOverlayBundleAttribute, IOverlayBundleMetadata } from '../../interfaces/overlay'
 import OverlayTypeMap from '../OverlayTypeMap'
@@ -32,7 +33,7 @@ class OverlayBundle {
       })
     this.overlays.push(
       ...bundle.overlays
-        .filter((overlay) => overlay.type === 'aries/overlays/branding/0.1')
+        .filter((overlay) => overlay.type === OverlayType.Branding01)
         .map((overlay) => {
           const OverlayClass = (OverlayTypeMap.get(overlay.type) ||
             LegacyBrandingOverlay) as typeof LegacyBrandingOverlay
@@ -41,7 +42,7 @@ class OverlayBundle {
     )
     this.overlays.push(
       ...bundle.overlays
-        .filter((overlay) => overlay.type === 'aries/overlays/branding/1.0')
+        .filter((overlay) => overlay.type === OverlayType.Branding10 || overlay.type === OverlayType.Branding11)
         .map((overlay) => {
           const OverlayClass = (OverlayTypeMap.get(overlay.type) || BrandingOverlay) as typeof BrandingOverlay
           return new OverlayClass(credentialDefinitionId, overlay as IBrandingOverlayData)
@@ -56,7 +57,10 @@ class OverlayBundle {
   }
 
   get branding(): BrandingOverlay | undefined {
-    return this.#overlaysForType<BrandingOverlay>('aries/overlays/branding/1.0')[0]
+    return (
+      this.#overlaysForType<BrandingOverlay>(OverlayType.Branding10)[0] ||
+      this.#overlaysForType<BrandingOverlay>(OverlayType.Branding11)[0]
+    )
   }
 
   getAttribute(name: string): IOverlayBundleAttribute | undefined {
@@ -83,7 +87,7 @@ class OverlayBundle {
       issuerDescription: {},
       issuerUrl: {},
     }
-    for (const overlay of this.#overlaysForType<MetaOverlay>('spec/overlays/meta/1.0')) {
+    for (const overlay of this.#overlaysForType<MetaOverlay>(OverlayType.Meta10)) {
       const language = overlay.language ?? 'en'
       const { name, description, credentialHelpText, credentialSupportUrl, issuer, issuerDescription, issuerUrl } =
         overlay
@@ -115,7 +119,7 @@ class OverlayBundle {
 
   #processLanguages(): string[] {
     const languages: string[] = []
-    for (const overlay of this.#overlaysForType<MetaOverlay>('spec/overlays/meta/1.0')) {
+    for (const overlay of this.#overlaysForType<MetaOverlay>(OverlayType.Meta10)) {
       const language = overlay.language
       if (language && !languages.includes(language)) {
         languages.push(language)
@@ -144,7 +148,7 @@ class OverlayBundle {
 
   #processInformationForAttribute(key: string): Record<string, string> {
     const information: Record<string, string> = {}
-    for (const overlay of this.#overlaysForType<InformationOverlay>('spec/overlays/information/1.0')) {
+    for (const overlay of this.#overlaysForType<InformationOverlay>(OverlayType.Information10)) {
       if (overlay.attributeInformation?.[key]) {
         const language = overlay.language ?? 'en'
         information[language] = overlay.attributeInformation[key]
@@ -155,7 +159,7 @@ class OverlayBundle {
 
   #processLabelForAttribute(key: string): Record<string, string> {
     const label: Record<string, string> = {}
-    for (const overlay of this.#overlaysForType<LabelOverlay>('spec/overlays/label/1.0')) {
+    for (const overlay of this.#overlaysForType<LabelOverlay>(OverlayType.Label10)) {
       if (overlay.attributeLabels?.[key]) {
         const language = overlay.language ?? 'en'
         label[language] = overlay.attributeLabels[key]
@@ -165,7 +169,7 @@ class OverlayBundle {
   }
 
   #processCharacterEncodingForAttribute(key: string): string | undefined {
-    for (const overlay of this.#overlaysForType<CharacterEncodingOverlay>('spec/overlays/character_encoding/1.0')) {
+    for (const overlay of this.#overlaysForType<CharacterEncodingOverlay>(OverlayType.CharacterEncoding10)) {
       if (overlay.attributeCharacterEncoding?.[key]) {
         return overlay.attributeCharacterEncoding[key]
       }
@@ -174,7 +178,7 @@ class OverlayBundle {
   }
 
   #processStandardForAttribute(key: string): string | undefined {
-    for (const overlay of this.#overlaysForType<StandardOverlay>('spec/overlays/standard/1.0')) {
+    for (const overlay of this.#overlaysForType<StandardOverlay>(OverlayType.Standard10)) {
       if (overlay.attributeStandards?.[key]) {
         return overlay.attributeStandards[key]
       }
@@ -183,7 +187,7 @@ class OverlayBundle {
   }
 
   #processFormatForAttribute(key: string): string | undefined {
-    for (const overlay of this.#overlaysForType<FormatOverlay>('spec/overlays/format/1.0')) {
+    for (const overlay of this.#overlaysForType<FormatOverlay>(OverlayType.Format10)) {
       if (overlay.attributeFormats?.[key]) {
         return overlay.attributeFormats[key]
       }
