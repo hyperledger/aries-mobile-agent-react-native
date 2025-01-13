@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -35,7 +35,7 @@ jobs:
 
       - name: Cache pod dependencies
         id: pod-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: packages/legacy/app/ios/Pods
           key: ${{ runner.os }}-pods-${{ env.cacheId }}-${{ hashFiles('**/Podfile.lock ') }}
@@ -50,7 +50,7 @@ jobs:
           echo $(git rev-parse HEAD:packages/legacy/app/ios) >> ./dd-cache-key.txt
 
       - name: Cache derived data
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: packages/legacy/app/ios/xbuild/Build
           key: ${{ runner.os }}-dd-xcode-${{ env.cacheId }}-${{ hashFiles('**/dd-cache-key.txt') }}
@@ -104,7 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -112,7 +112,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Setup JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: 11
