@@ -4,6 +4,7 @@ import {
   DidKey,
   JwaSignatureAlgorithm,
   JwkDidCreateOptions,
+  KeyBackend,
   KeyDidCreateOptions,
   KeyType,
   SdJwtVcRecord,
@@ -12,7 +13,11 @@ import {
   W3cCredentialRepository,
   getJwkFromKey,
 } from '@credo-ts/core'
-import { OpenId4VciCredentialFormatProfile, OpenId4VciCredentialSupportedWithId, OpenId4VciSupportedCredentialFormats } from '@credo-ts/openid4vc'
+import {
+  OpenId4VciCredentialFormatProfile,
+  OpenId4VciCredentialSupportedWithId,
+  OpenId4VciSupportedCredentialFormats,
+} from '@credo-ts/openid4vc'
 import { extractOpenId4VcCredentialMetadata, setOpenId4VcCredentialMetadata } from './metadata'
 
 export type OpenID4VCIParam = {
@@ -103,6 +108,7 @@ export const receiveCredentialFromOpenId4VciOffer = async ({ agent, data, uri }:
         if (supportsJwk && credentialFormat === OpenId4VciCredentialFormatProfile.SdJwtVc) {
           const key = await agent.wallet.createKey({
             keyType,
+            keyBackend: KeyBackend.SecureElement,
           })
           return {
             method: 'jwk',
@@ -155,7 +161,6 @@ export const receiveCredentialFromOpenId4VciOffer = async ({ agent, data, uri }:
   setOpenId4VcCredentialMetadata(record, openId4VcMetadata)
   return record
 }
-
 
 export async function storeCredential(agent: Agent, credentialRecord: W3cCredentialRecord | SdJwtVcRecord) {
   if (credentialRecord instanceof W3cCredentialRecord) {
