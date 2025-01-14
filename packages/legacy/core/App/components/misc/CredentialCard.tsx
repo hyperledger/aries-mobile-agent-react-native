@@ -121,6 +121,9 @@ const CredentialCard: React.FC<CredentialCardProps> = ({
         onPress={onPress}
         brandingOverlay={overlay}
         credentialErrors={credentialErrors ?? []}
+        proof={proof}
+        elevated={proof}
+        displayItems={displayItems}
       />
     )
   } else {
