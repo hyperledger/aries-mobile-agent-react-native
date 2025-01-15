@@ -5,12 +5,14 @@ import { createContext, useContext, useState } from 'react'
 import NetInfoModal from '../components/modals/NetInfoModal'
 import { hostnameFromURL, canConnectToHost } from '../utils/network'
 import { Config } from 'react-native-config'
+
 export interface NetworkContext {
   silentAssertConnectedNetwork: () => boolean
   assertNetworkConnected: () => boolean
   displayNetInfoModal: () => void
   hideNetInfoModal: () => void
-  assertNetworkReachable: () => Promise<boolean>
+  assertInternetReachable: (_urls?: string[]) => Promise<boolean>
+  assertMediatorReachable: () => Promise<boolean>
 }
 
 export const NetworkContext = createContext<NetworkContext>(null as unknown as NetworkContext)
@@ -28,7 +30,7 @@ export const NetworkProvider: React.FC<React.PropsWithChildren> = ({ children })
   }
 
   const silentAssertConnectedNetwork = () => {
-    return netInfo.isConnected || netInfo.type !== NetInfoStateType.none
+    return netInfo.isConnected || [NetInfoStateType.wifi, NetInfoStateType.cellular].includes(netInfo.type)
   }
 
   const assertNetworkConnected = () => {
@@ -36,11 +38,31 @@ export const NetworkProvider: React.FC<React.PropsWithChildren> = ({ children })
     if (!isConnected) {
       displayNetInfoModal()
     }
-
     return isConnected
   }
 
-  const assertNetworkReachable = async (): Promise<boolean> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const assertInternetReachable = async (_urls?: string[]): Promise<boolean> => {
+
+     return netInfo.isInternetReachable as boolean
+    /*
+    // Ping internet check beacon endponits, set internetReachable to be true positive response from anyone
+    try {
+      let isReached = false;
+      await Promise.all(urls.map(async (url) => {
+        const response = await fetch(url)
+        if ("204" === `${response.status}` || "200" === `${response.status}`) {
+          isReached = true
+        }
+      }));
+      return isReached
+    } catch (error) {
+      return false
+    }
+    */
+  }
+
+  const assertMediatorReachable = async (): Promise<boolean> => {
     const hostname = hostnameFromURL(Config.MEDIATOR_URL!)
 
     if (hostname === null || hostname.length === 0) {
@@ -60,7 +82,8 @@ export const NetworkProvider: React.FC<React.PropsWithChildren> = ({ children })
         assertNetworkConnected,
         displayNetInfoModal,
         hideNetInfoModal,
-        assertNetworkReachable,
+        assertInternetReachable,
+        assertMediatorReachable
       }}
     >
       {children}

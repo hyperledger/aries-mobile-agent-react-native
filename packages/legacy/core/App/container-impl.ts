@@ -61,6 +61,8 @@ export const defaultConfig: Config = {
   showPreface: false,
   disableOnboardingSkip: false,
   disableContactsInSettings: false,
+  disableMediatorCheck: false,
+  internetReachabilityUrls: ['https://clients3.google.com/generate_204'],
   whereToUseWalletUrl: 'https://example.com',
   showScanHelp: true,
   showScanButton: true,
